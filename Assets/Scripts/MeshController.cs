@@ -5,6 +5,8 @@ public class MeshController : MonoBehaviour
 {
     public String[] meshTags;
 
+    private String lastMeshTag;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +20,7 @@ public class MeshController : MonoBehaviour
         {
             DisableAllMeshes();
             meshObject.GetComponent<Renderer>().enabled = true;
-            //meshObject.SetActive(true);
+            lastMeshTag = tag;
         }
     }
 
@@ -32,6 +34,14 @@ public class MeshController : MonoBehaviour
                 meshObject.GetComponent<Renderer>().enabled = false;
                 //meshObject.SetActive(false);
             }
+        }
+    }
+
+    void Update()
+    {
+        GameObject meshObject = GameObject.FindWithTag(lastMeshTag);
+        if (meshObject != null)        {
+            meshObject.GetComponent<Renderer>().enabled = true;
         }
     }
 }
